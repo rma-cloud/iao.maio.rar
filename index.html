@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apresentação RAR - Coordenação Técnica</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+body {
+font-family: 'Open Sans', sans-serif;
+background-color: #f8fafc;
+}
+h1, h2, h3, .font-poppins {
+font-family: 'Poppins', sans-serif;
+}
+.tab-active {
+border-bottom: 3px solid #fbbf24;
+color: #fbbf24;
+}
+.content-section {
+display: none;
+}
+.content-section.active {
+display: block;
+animation: fadeIn 0.4s ease-out;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.stat-card {
+transition: transform 0.2s;
+}
+.stat-card:hover {
+transform: translateY(-2px);
+}
+/* Custom Scrollbar for Nav on mobile */
+.nav-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.nav-scroll::-webkit-scrollbar-track {
+  background: #003366;
+}
+.nav-scroll::-webkit-scrollbar-thumb {
+  background: #004080;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+ 
+<!-- Cabeçalho -->
+<header class="bg-[#003366] text-white sticky top-0 z-50 shadow-xl">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<div class="flex-shrink-0 flex items-center gap-3">
+<i class="fa-solid fa-chart-line text-yellow-400 text-2xl"></i>
+<span class="font-poppins font-bold text-sm sm:text-lg tracking-tight uppercase">DADOS RAR - COORDENAÇÃO TÉCNICA</span>
+</div>
+<nav class="flex space-x-4 sm:space-x-8 h-full items-center text-xs font-semibold uppercase tracking-wider overflow-x-auto nav-scroll whitespace-nowrap px-2">
+<button onclick="showSection('comparativo')" class="nav-btn tab-active px-2 py-7 transition-all" id="btn-comparativo"><i class="fa-solid fa-table-columns mr-2"></i>Comparativo Mensal</button>
+<button onclick="showSection('estrategico')" class="nav-btn px-2 py-7 transition-all" id="btn-estrategico"><i class="fa-solid fa-chess-knight mr-2"></i>Estratégico</button>
+</nav>
+</div>
+</div>
+</header>
+ 
+<main class="flex-grow">
+ 
+<!-- SECÇÃO: COMPARATIVO MENSAL -->
+<section id="comparativo" class="content-section active">
+<div class="bg-[#004080] text-white py-12">
+<div class="max-w-7xl mx-auto px-4 text-center md:text-left">
+<h2 class="text-3xl sm:text-4xl font-bold mb-2">Evolução Mensal dos Indicadores</h2>
+<p class="text-blue-100 flex items-center justify-center md:justify-start gap-2 text-lg">
+<i class="fa-solid fa-user-tie"></i> Coordenador(a): Iana Aragão
+</p>
+</div>
+</div>
+ 
+<div class="max-w-7xl mx-auto px-4 py-12 space-y-10">
+  
+<!-- 1. GESTÃO DE TESES E INOVAÇÃO -->
+<div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border-t-4 border-blue-500">
+  <h3 class="text-2xl font-bold text-blue-900 mb-6 flex items-center gap-3"><i class="fa-solid fa-file-signature text-blue-500"></i> Gestão de Teses e Inovação</h3>
+  
+  <div class="space-y-8">
+    <!-- Item: Revisão de Peças -->
+    <div>
+      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Revisão de peças estratégicas e recursos de alta complexidade</h5>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
+          <span class="text-3xl font-bold text-gray-800">15</span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
+          <span class="text-3xl font-bold text-gray-800">78</span>
+          <div class="mt-2 text-[11px] leading-relaxed text-gray-600">(04 Mercado Livre; 01 IFood; 02 Nubank; 71 Serasa)</div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
+          <span class="text-3xl font-bold text-gray-800">40</span>
+          <div class="mt-2 text-[11px] leading-relaxed text-gray-600">(12 Mercado Livre; 26 Serasa; 01 Ortobom; 01 TOTVS)</div>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-300 relative shadow-sm">
+          <span class="absolute top-0 right-0 bg-blue-500 text-white text-[10px] px-2 py-1 rounded-bl-lg rounded-tr-lg font-bold">ATUAL</span>
+          <span class="block text-xs font-bold text-blue-800 uppercase mb-1">Maio</span>
+          <span class="text-3xl font-bold text-blue-700">49</span>
+          <div class="mt-2 text-[11px] leading-relaxed text-blue-800">(12 Mercado Livre; 32 Serasa; 01 3Corações; 01 TOTVS; 01 Nubank; 02 Buser)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item: Criação de Teses -->
+    <div>
+      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Criação de novas teses e tópicos estratégicos</h5>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
+          <span class="text-2xl font-bold text-gray-800">03</span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
+          <span class="text-2xl font-bold text-gray-800">01</span>
+          <div class="mt-1 text-[11px] text-gray-600">(MOVA)</div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 opacity-75">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
+          <span class="text-2xl font-bold text-gray-400">-</span>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-300 relative">
+          <span class="block text-xs font-bold text-blue-800 uppercase mb-1">Maio</span>
+          <span class="text-2xl font-bold text-blue-700">06</span>
+          <div class="mt-1 text-[11px] text-blue-800">(06 Serasa)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. QUALIDADE E ATHENA -->
+<div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border-t-4 border-yellow-400">
+  <h3 class="text-2xl font-bold text-yellow-700 mb-6 flex items-center gap-3"><i class="fa-solid fa-scale-balanced text-yellow-500"></i> Qualidade e Núcleo Athena</h3>
+  
+  <div class="space-y-8">
+    <!-- Item: JA Nubank -->
+    <div>
+      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase flex items-center gap-2">JA (Nubank) <span class="bg-yellow-100 text-yellow-800 text-[10px] px-2 py-0.5 rounded font-normal"><i class="fa-solid fa-check mr-1"></i>Feedback estruturado e controle amostral</span></h5>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
+          <span class="text-2xl font-bold text-gray-800">90</span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
+          <span class="text-2xl font-bold text-gray-800">90</span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
+          <span class="text-2xl font-bold text-gray-800">55</span>
+        </div>
+        <div class="bg-yellow-50 p-4 rounded-lg border-2 border-yellow-300 relative shadow-sm">
+          <span class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-[10px] px-2 py-1 rounded-bl-lg rounded-tr-lg font-bold">ATUAL</span>
+          <span class="block text-xs font-bold text-yellow-800 uppercase mb-1">Maio</span>
+          <span class="text-3xl font-bold text-yellow-700">141</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item: Núcleo Athena -->
+    <div>
+      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Revisão técnica de dossiês estratégicos</h5>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 opacity-75">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
+          <span class="text-2xl font-bold text-gray-400">-</span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
+          <span class="text-2xl font-bold text-gray-800">01</span>
+          <div class="mt-1 text-[11px] text-gray-600">(Serasa)</div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
+          <span class="text-2xl font-bold text-gray-800">03</span>
+          <div class="mt-1 text-[11px] text-gray-600">(01 Serasa; 02 Nubank)</div>
+        </div>
+        <div class="bg-yellow-50 p-4 rounded-lg border-2 border-yellow-300 relative">
+          <span class="block text-xs font-bold text-yellow-800 uppercase mb-1">Maio</span>
+          <span class="text-2xl font-bold text-yellow-700">04</span>
+          <div class="mt-1 text-[11px] text-yellow-800">(04 Serasa)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. CONSULTIVO E DESPACHOS -->
+<div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border-t-4 border-green-500 relative">
+  <!-- Radar Consumerista Banner -->
+  <div class="absolute top-4 right-6 bg-green-100 text-green-800 px-3 py-1.5 rounded shadow-sm text-xs font-bold flex items-center gap-2 border border-green-200 hidden md:flex">
+    <i class="fa-solid fa-radar animate-pulse text-green-600"></i> Radar Consumerista: Frequência Diária
+  </div>
+
+  <h3 class="text-2xl font-bold text-green-800 mb-6 flex items-center gap-3"><i class="fa-solid fa-comments text-green-500"></i> Consultivo, Estratégia e Despachos</h3>
+  
+  <!-- Mobile Banner for Radar -->
+  <div class="bg-green-100 text-green-800 px-3 py-2 rounded shadow-sm text-xs font-bold flex items-center gap-2 mb-6 border border-green-200 md:hidden">
+    <i class="fa-solid fa-radar animate-pulse text-green-600"></i> Radar Consumerista: Frequência Diária
+  </div>
+
+  <div class="space-y-8">
+    <!-- Item: Despachos -->
+    <div>
+      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Despachos e Diligências</h5>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
+          <span class="text-2xl font-bold text-gray-800">12</span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
+          <span class="text-2xl font-bold text-gray-800">14</span>
+          <div class="mt-2 text-[11px] leading-relaxed text-gray-600">(11 Serasa; 01 Eurovia; Diversos 02)</div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
+          <span class="text-2xl font-bold text-gray-800">33</span>
+          <div class="mt-2 text-[11px] leading-relaxed text-gray-600">(20 Nubank; 03 ML; 08 Serasa; 02 Eurovia)</div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-2 border-green-300 relative shadow-sm">
+          <span class="absolute top-0 right-0 bg-green-500 text-white text-[10px] px-2 py-1 rounded-bl-lg rounded-tr-lg font-bold">ATUAL</span>
+          <span class="block text-xs font-bold text-green-800 uppercase mb-1">Maio</span>
+          <span class="text-3xl font-bold text-green-700">21</span>
+          <div class="mt-2 text-[11px] leading-relaxed text-green-800">(01 Nubank; 01 ML; 13 Serasa; 06 Diversos)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item: Estratégia Jurídica -->
+    <div>
+      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Desenvolvimento de Estratégias Jurídicas</h5>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
+          <span class="text-2xl font-bold text-gray-800">18</span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
+          <span class="text-2xl font-bold text-gray-800">14</span>
+          <div class="mt-2 text-[11px] text-gray-600">(08 Serasa; 04 ML; 02 Nubank)</div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
+          <span class="text-2xl font-bold text-gray-800">15</span>
+          <div class="mt-2 text-[11px] text-gray-600">(02 Serasa; 13 ML)</div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-2 border-green-300 relative">
+          <span class="block text-xs font-bold text-green-800 uppercase mb-1">Maio</span>
+          <span class="text-2xl font-bold text-green-700">30</span>
+          <div class="mt-2 text-[11px] text-green-800">(16 Serasa; 10 ML; 04 Nubank)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item: Relatórios -->
+    <div>
+      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Relatórios</h5>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
+          <span class="text-xl font-bold text-gray-800">05</span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
+          <span class="text-xl font-bold text-gray-800">01</span>
+          <div class="mt-1 text-[11px] text-gray-600">(Serasa)</div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
+          <span class="text-xl font-bold text-gray-800">01</span>
+          <div class="mt-1 text-[11px] text-gray-600">(Serasa)</div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-2 border-green-300 relative">
+          <span class="block text-xs font-bold text-green-800 uppercase mb-1">Maio</span>
+          <span class="text-xl font-bold text-green-700">01</span>
+          <div class="mt-1 text-[11px] text-green-800">(Serasa)</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+</section>
+
+<!-- SECÇÃO: ESTRATÉGICO -->
+<section id="estrategico" class="content-section">
+<div class="bg-slate-800 text-white py-12">
+<div class="max-w-7xl mx-auto px-4 text-center md:text-left">
+<h2 class="text-3xl sm:text-4xl font-bold mb-2">Planejamento & Resultados Estratégicos</h2>
+<p class="text-slate-300 flex items-center justify-center md:justify-start gap-2 text-lg">
+Coordenação Técnica - AESI
+</p>
+</div>
+</div>
+ 
+<div class="max-w-7xl mx-auto px-4 py-12 space-y-10">
+  
+<!-- DESTAQUES E RESULTADOS ESTRATÉGICOS -->
+<div>
+<h3 class="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-yellow-400 pl-3">Destaques e Resultados Estratégicos</h3>
+<div class="grid md:grid-cols-2 gap-4">
+  
+  <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex gap-4 items-start">
+    <div class="bg-green-100 text-green-600 p-3 rounded-full shrink-0">
+      <i class="fa-solid fa-trophy text-xl"></i>
+    </div>
+    <div>
+      <h4 class="font-bold text-gray-800 text-md mb-1">Vitória em Tutelas Coletivas <span class="text-xs font-normal text-gray-500 ml-1">(Serasa)</span></h4>
+      <p class="text-sm text-gray-600 leading-relaxed">Revogação de liminares em sede Ações Coletivas nos estados da Bahia (BA), Ceará (CE) e Pernambuco (PE).</p>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex gap-4 items-start">
+    <div class="bg-blue-100 text-blue-600 p-3 rounded-full shrink-0">
+      <i class="fa-solid fa-book-bookmark text-xl"></i>
+    </div>
+    <div>
+      <h4 class="font-bold text-gray-800 text-md mb-1">Alinhamento Jurisprudencial <span class="text-xs font-normal text-gray-500 ml-1">(Serasa)</span></h4>
+      <p class="text-sm text-gray-600 leading-relaxed">Adoção do TEMA 1.315 do STJ nos casos de FC DIGITAL.</p>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex gap-4 items-start md:col-span-2 lg:col-span-1">
+    <div class="bg-yellow-100 text-yellow-600 p-3 rounded-full shrink-0">
+      <i class="fa-solid fa-sack-dollar text-xl"></i>
+    </div>
+    <div>
+      <h4 class="font-bold text-gray-800 text-md mb-1">Êxito Financeiro Expressivo <span class="text-xs font-normal text-gray-500 ml-1">(Mercado Livre)</span></h4>
+      <p class="text-sm text-gray-600 leading-relaxed">Desbloqueio estratégico de penhora no valor de <strong>R$ 7.180.000,00</strong> (7 milhões e 180 mil reais).</p>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex gap-4 items-start md:col-span-2 lg:col-span-1">
+    <div class="bg-purple-100 text-purple-600 p-3 rounded-full shrink-0">
+      <i class="fa-solid fa-shield-halved text-xl"></i>
+    </div>
+    <div>
+      <h4 class="font-bold text-gray-800 text-md mb-1">Manutenção de tutela de urgência</h4>
+      <p class="text-sm text-gray-600 leading-relaxed">Após a concessão da liminar neste ano (2026), a parte ré interpôs Agravo de Instrumento, o qual foi <strong>conhecido e não provido</strong>.</p>
+      <div class="mt-2 bg-gray-50 text-xs px-2 py-1 rounded text-gray-500 inline-block">OBS: Processo com 5 anos de tramitação</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- CRONOGRAMA DE TREINAMENTOS -->
+<div>
+<h3 class="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-indigo-500 pl-3">Projeto de Capacitação</h3>
+<p class="text-gray-600 text-sm mb-4">Cronograma de Treinamentos para capacitação da equipe.</p>
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left">
+<thead class="bg-slate-50 text-gray-600 font-bold border-b border-gray-200">
+<tr>
+<th class="px-4 py-4 whitespace-nowrap">Data Prevista</th>
+<th class="px-4 py-4">Formato</th>
+<th class="px-4 py-4">Tema</th>
+<th class="px-4 py-4">Líder Técnico / Palestrante</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100">
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-3 font-medium text-gray-800">01/07/2026</td>
+<td class="px-4 py-3"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">Virtual</span></td>
+<td class="px-4 py-3 text-gray-700">Audiências, Despachos e Sustentação Oral</td>
+<td class="px-4 py-3 text-gray-600">Laís e Maria Alice</td>
+</tr>
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-3 font-medium text-gray-800">22/07/2026</td>
+<td class="px-4 py-3"><span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded font-bold">Presencial</span></td>
+<td class="px-4 py-3 text-gray-700">Preliminares de mérito e análise de documentos/provas</td>
+<td class="px-4 py-3 text-gray-500 italic">A definir nesta reunião</td>
+</tr>
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-3 font-medium text-gray-800">11/08/2026</td>
+<td class="px-4 py-3"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">Virtual</span></td>
+<td class="px-4 py-3 text-gray-700">Cumprimento de Sentença e Execução</td>
+<td class="px-4 py-3 text-gray-500 italic">A definir nesta reunião</td>
+</tr>
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-3 font-medium text-gray-800">05/09/2026</td>
+<td class="px-4 py-3"><span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded font-bold">Presencial</span></td>
+<td class="px-4 py-3 text-gray-700">Oficina de Memoriais</td>
+<td class="px-4 py-3 text-gray-600">Marina</td>
+</tr>
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-3 font-medium text-gray-800">25/09/2026</td>
+<td class="px-4 py-3"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">Virtual</span></td>
+<td class="px-4 py-3 text-gray-700">JEC x Justiça Comum</td>
+<td class="px-4 py-3 text-gray-500 italic">A definir nesta reunião</td>
+</tr>
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-3 font-medium text-gray-800">20/10/2026</td>
+<td class="px-4 py-3"><span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded font-bold">Presencial</span></td>
+<td class="px-4 py-3 text-gray-700">Recursos</td>
+<td class="px-4 py-3 text-gray-500 italic">A definir nesta reunião</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- INTELIGÊNCIA DE DADOS & JURIMETRIA -->
+<div>
+<h3 class="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-teal-500 pl-3">Inteligência de Dados & Jurimetria (Deep Legal)</h3>
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+  <ul class="grid sm:grid-cols-2 gap-4 text-gray-700">
+    <li class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+      <i class="fa-solid fa-chart-line text-teal-600 text-lg w-6 text-center"></i>
+      <span class="font-semibold text-sm">Monitoramento estratégico de Comarcas</span>
+    </li>
+    <li class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+      <i class="fa-solid fa-magnifying-glass-chart text-teal-600 text-lg w-6 text-center"></i>
+      <span class="font-semibold text-sm">Estudo de previsibilidade e jurimetria preventiva</span>
+    </li>
+    <li class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+      <i class="fa-solid fa-book-open text-teal-600 text-lg w-6 text-center"></i>
+      <span class="font-semibold text-sm">Estudo de Súmulas e Precedentes Locais</span>
+    </li>
+    <li class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+      <i class="fa-solid fa-clipboard-check text-teal-600 text-lg w-6 text-center"></i>
+      <span class="font-semibold text-sm">Plano de Ação preventivo</span>
+    </li>
+  </ul>
+</div>
+</div>
+
+</div>
+</section>
+ 
+</main>
+ 
+<footer class="bg-white border-t border-gray-100 py-8 mt-auto">
+<div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-gray-400 text-xs">
+<p>&copy; 2026 - Relatório DADOS RAR - Coordenação Técnica</p>
+<p class="mt-2 md:mt-0 font-bold">CONFIDENCIAL</p>
+</div>
+</footer>
+ 
+<script>
+function showSection(sectionId) {
+// Esconde todas as seções
+document.querySelectorAll('.content-section').forEach(section => {
+section.classList.remove('active');
+});
+ 
+// Mostra a seção desejada
+const target = document.getElementById(sectionId);
+if (target) {
+target.classList.add('active');
+}
+ 
+// Atualiza os estilos das abas de navegação
+document.querySelectorAll('.nav-btn').forEach(btn => {
+btn.classList.remove('tab-active');
+});
+const activeBtn = document.getElementById('btn-' + sectionId);
+if (activeBtn) {
+activeBtn.classList.add('tab-active');
+}
+ 
+// Rola suavemente para o topo ao trocar de aba
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
