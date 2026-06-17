@@ -1,487 +1,804 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apresentação RAR - Coordenação Técnica</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-body {
-font-family: 'Open Sans', sans-serif;
-background-color: #f8fafc;
-}
-h1, h2, h3, .font-poppins {
-font-family: 'Poppins', sans-serif;
-}
-.tab-active {
-border-bottom: 3px solid #fbbf24;
-color: #fbbf24;
-}
-.content-section {
-display: none;
-}
-.content-section.active {
-display: block;
-animation: fadeIn 0.4s ease-out;
-}
-@keyframes fadeIn {
-from { opacity: 0; transform: translateY(8px); }
-to { opacity: 1; transform: translateY(0); }
-}
-.stat-card {
-transition: transform 0.2s;
-}
-.stat-card:hover {
-transform: translateY(-2px);
-}
-/* Custom Scrollbar for Nav on mobile */
-.nav-scroll::-webkit-scrollbar {
-  height: 4px;
-}
-.nav-scroll::-webkit-scrollbar-track {
-  background: #003366;
-}
-.nav-scroll::-webkit-scrollbar-thumb {
-  background: #004080;
-  border-radius: 4px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard RAR - Iana Aragão</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js para o Dashboard Comparativo -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+        h1, h2, h3, .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+        .tab-active {
+            border-bottom: 3px solid #fbbf24;
+            color: #fbbf24 !important;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stat-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .client-badge {
+            font-size: 0.7rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+        /* Custom Scrollbar for table */
+        ::-webkit-scrollbar { height: 6px; width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col">
- 
-<!-- Cabeçalho -->
-<header class="bg-[#003366] text-white sticky top-0 z-50 shadow-xl">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex items-center justify-between h-20">
-<div class="flex-shrink-0 flex items-center gap-3">
-<i class="fa-solid fa-chart-line text-yellow-400 text-2xl"></i>
-<span class="font-poppins font-bold text-sm sm:text-lg tracking-tight uppercase">DADOS RAR - COORDENAÇÃO TÉCNICA</span>
-</div>
-<nav class="flex space-x-4 sm:space-x-8 h-full items-center text-xs font-semibold uppercase tracking-wider overflow-x-auto nav-scroll whitespace-nowrap px-2">
-<button onclick="showSection('comparativo')" class="nav-btn tab-active px-2 py-7 transition-all" id="btn-comparativo"><i class="fa-solid fa-table-columns mr-2"></i>Comparativo Mensal</button>
-<button onclick="showSection('estrategico')" class="nav-btn px-2 py-7 transition-all" id="btn-estrategico"><i class="fa-solid fa-chess-knight mr-2"></i>Estratégico</button>
-</nav>
-</div>
-</div>
-</header>
- 
-<main class="flex-grow">
- 
-<!-- SECÇÃO: COMPARATIVO MENSAL -->
-<section id="comparativo" class="content-section active">
-<div class="bg-[#004080] text-white py-12">
-<div class="max-w-7xl mx-auto px-4 text-center md:text-left">
-<h2 class="text-3xl sm:text-4xl font-bold mb-2">Evolução Mensal dos Indicadores</h2>
-<p class="text-blue-100 flex items-center justify-center md:justify-start gap-2 text-lg">
-<i class="fa-solid fa-user-tie"></i> Coordenador(a): Iana Aragão
-</p>
-</div>
-</div>
- 
-<div class="max-w-7xl mx-auto px-4 py-12 space-y-10">
-  
-<!-- 1. GESTÃO DE TESES E INOVAÇÃO -->
-<div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border-t-4 border-blue-500">
-  <h3 class="text-2xl font-bold text-blue-900 mb-6 flex items-center gap-3"><i class="fa-solid fa-file-signature text-blue-500"></i> Gestão de Teses e Inovação</h3>
-  
-  <div class="space-y-8">
-    <!-- Item: Revisão de Peças -->
-    <div>
-      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Revisão de peças estratégicas e recursos de alta complexidade</h5>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
-          <span class="text-3xl font-bold text-gray-800">15</span>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
-          <span class="text-3xl font-bold text-gray-800">78</span>
-          <div class="mt-2 text-[11px] leading-relaxed text-gray-600">(04 Mercado Livre; 01 IFood; 02 Nubank; 71 Serasa)</div>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
-          <span class="text-3xl font-bold text-gray-800">40</span>
-          <div class="mt-2 text-[11px] leading-relaxed text-gray-600">(12 Mercado Livre; 26 Serasa; 01 Ortobom; 01 TOTVS)</div>
-        </div>
-        <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-300 relative shadow-sm">
-          <span class="absolute top-0 right-0 bg-blue-500 text-white text-[10px] px-2 py-1 rounded-bl-lg rounded-tr-lg font-bold">ATUAL</span>
-          <span class="block text-xs font-bold text-blue-800 uppercase mb-1">Maio</span>
-          <span class="text-3xl font-bold text-blue-700">49</span>
-          <div class="mt-2 text-[11px] leading-relaxed text-blue-800">(12 Mercado Livre; 32 Serasa; 01 3Corações; 01 TOTVS; 01 Nubank; 02 Buser)</div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Item: Criação de Teses -->
-    <div>
-      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Criação de novas teses e tópicos estratégicos</h5>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
-          <span class="text-2xl font-bold text-gray-800">03</span>
+    <!-- Cabeçalho Principal -->
+    <header class="bg-[#003366] text-white sticky top-0 z-50 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between h-auto md:h-20 py-4 md:py-0">
+                <div class="flex items-center gap-3 mb-4 md:mb-0">
+                    <i class="fa-solid fa-scale-balanced text-yellow-400 text-3xl"></i>
+                    <div>
+                        <h1 class="font-poppins font-bold text-lg tracking-tight uppercase leading-none">DADOS RAR - COORDENAÇÃO TÉCNICA</h1>
+                        <span class="text-blue-200 text-sm"><i class="fa-solid fa-user-tie mr-1"></i> Coordenador(a): <strong>Iana Aragão</strong></span>
+                    </div>
+                </div>
+                
+                <!-- Navegação -->
+                <nav class="flex overflow-x-auto space-x-2 md:space-x-6 items-center text-xs font-semibold uppercase tracking-wider pb-2 md:pb-0 h-full scrollbar-hide">
+                    <button onclick="showSection('dash')" class="nav-btn tab-active text-gray-300 hover:text-white px-2 py-2 md:py-7 whitespace-nowrap transition-all" id="btn-dash">Visão Geral (Dash)</button>
+                    <button onclick="showSection('fev')" class="nav-btn text-gray-300 hover:text-white px-2 py-2 md:py-7 whitespace-nowrap transition-all" id="btn-fev">Fevereiro</button>
+                    <button onclick="showSection('mar')" class="nav-btn text-gray-300 hover:text-white px-2 py-2 md:py-7 whitespace-nowrap transition-all" id="btn-mar">Março</button>
+                    <button onclick="showSection('abr')" class="nav-btn text-gray-300 hover:text-white px-2 py-2 md:py-7 whitespace-nowrap transition-all" id="btn-abr">Abril</button>
+                    <button onclick="showSection('mai')" class="nav-btn text-gray-300 hover:text-white px-2 py-2 md:py-7 whitespace-nowrap transition-all" id="btn-mai">Maio</button>
+                    <button onclick="showSection('destaques')" class="nav-btn text-gray-300 hover:text-white px-2 py-2 md:py-7 whitespace-nowrap transition-all" id="btn-destaques">Estratégia & Projetos</button>
+                </nav>
+            </div>
         </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
-          <span class="text-2xl font-bold text-gray-800">01</span>
-          <div class="mt-1 text-[11px] text-gray-600">(MOVA)</div>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 opacity-75">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
-          <span class="text-2xl font-bold text-gray-400">-</span>
-        </div>
-        <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-300 relative">
-          <span class="block text-xs font-bold text-blue-800 uppercase mb-1">Maio</span>
-          <span class="text-2xl font-bold text-blue-700">06</span>
-          <div class="mt-1 text-[11px] text-blue-800">(06 Serasa)</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    </header>
 
-<!-- 2. QUALIDADE E ATHENA -->
-<div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border-t-4 border-yellow-400">
-  <h3 class="text-2xl font-bold text-yellow-700 mb-6 flex items-center gap-3"><i class="fa-solid fa-scale-balanced text-yellow-500"></i> Qualidade e Núcleo Athena</h3>
-  
-  <div class="space-y-8">
-    <!-- Item: JA Nubank -->
-    <div>
-      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase flex items-center gap-2">JA (Nubank) <span class="bg-yellow-100 text-yellow-800 text-[10px] px-2 py-0.5 rounded font-normal"><i class="fa-solid fa-check mr-1"></i>Feedback estruturado e controle amostral</span></h5>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
-          <span class="text-2xl font-bold text-gray-800">90</span>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
-          <span class="text-2xl font-bold text-gray-800">90</span>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
-          <span class="text-2xl font-bold text-gray-800">55</span>
-        </div>
-        <div class="bg-yellow-50 p-4 rounded-lg border-2 border-yellow-300 relative shadow-sm">
-          <span class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-[10px] px-2 py-1 rounded-bl-lg rounded-tr-lg font-bold">ATUAL</span>
-          <span class="block text-xs font-bold text-yellow-800 uppercase mb-1">Maio</span>
-          <span class="text-3xl font-bold text-yellow-700">141</span>
-        </div>
-      </div>
-    </div>
+    <main class="flex-grow pb-12">
 
-    <!-- Item: Núcleo Athena -->
-    <div>
-      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Revisão técnica de dossiês estratégicos</h5>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 opacity-75">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
-          <span class="text-2xl font-bold text-gray-400">-</span>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
-          <span class="text-2xl font-bold text-gray-800">01</span>
-          <div class="mt-1 text-[11px] text-gray-600">(Serasa)</div>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
-          <span class="text-2xl font-bold text-gray-800">03</span>
-          <div class="mt-1 text-[11px] text-gray-600">(01 Serasa; 02 Nubank)</div>
-        </div>
-        <div class="bg-yellow-50 p-4 rounded-lg border-2 border-yellow-300 relative">
-          <span class="block text-xs font-bold text-yellow-800 uppercase mb-1">Maio</span>
-          <span class="text-2xl font-bold text-yellow-700">04</span>
-          <div class="mt-1 text-[11px] text-yellow-800">(04 Serasa)</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+        <!-- ==========================================
+             SEÇÃO: DASHBOARD (VISÃO GERAL COMPARATIVA)
+        =========================================== -->
+        <section id="dash" class="content-section active">
+            <div class="bg-gradient-to-r from-[#004080] to-[#0059b3] text-white py-12">
+                <div class="max-w-7xl mx-auto px-4">
+                    <h2 class="text-3xl font-bold mb-2 font-poppins">Dashboard de Produção - Evolução Mensal</h2>
+                    <p class="text-blue-100 text-sm">Comparativo de performance entre os meses de Fevereiro e Maio de 2026.</p>
+                </div>
+            </div>
 
-<!-- 3. CONSULTIVO E DESPACHOS -->
-<div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border-t-4 border-green-500 relative">
-  <!-- Radar Consumerista Banner -->
-  <div class="absolute top-4 right-6 bg-green-100 text-green-800 px-3 py-1.5 rounded shadow-sm text-xs font-bold flex items-center gap-2 border border-green-200 hidden md:flex">
-    <i class="fa-solid fa-radar animate-pulse text-green-600"></i> Radar Consumerista: Frequência Diária
-  </div>
+            <div class="max-w-7xl mx-auto px-4 py-8 space-y-8 -mt-8">
+                <!-- Cards de Resumo (Totais do Semestre até Maio) -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white rounded-xl shadow p-5 border-l-4 border-blue-500 stat-card">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-xs font-bold uppercase">Total Revisão Peças</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-1">182</h3>
+                            </div>
+                            <div class="bg-blue-100 p-2 rounded-lg text-blue-600"><i class="fa-solid fa-file-signature"></i></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Peças estratégicas e alta complexidade</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow p-5 border-l-4 border-green-500 stat-card">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-xs font-bold uppercase">Total JA (Nubank)</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-1">376</h3>
+                            </div>
+                            <div class="bg-green-100 p-2 rounded-lg text-green-600"><i class="fa-solid fa-scale-unbalanced"></i></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Pico de 141 em Maio</p>
+                    </div>
 
-  <h3 class="text-2xl font-bold text-green-800 mb-6 flex items-center gap-3"><i class="fa-solid fa-comments text-green-500"></i> Consultivo, Estratégia e Despachos</h3>
-  
-  <!-- Mobile Banner for Radar -->
-  <div class="bg-green-100 text-green-800 px-3 py-2 rounded shadow-sm text-xs font-bold flex items-center gap-2 mb-6 border border-green-200 md:hidden">
-    <i class="fa-solid fa-radar animate-pulse text-green-600"></i> Radar Consumerista: Frequência Diária
-  </div>
+                    <div class="bg-white rounded-xl shadow p-5 border-l-4 border-purple-500 stat-card">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-xs font-bold uppercase">Total Despachos</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-1">80</h3>
+                            </div>
+                            <div class="bg-purple-100 p-2 rounded-lg text-purple-600"><i class="fa-solid fa-gavel"></i></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Diligências e tratativas</p>
+                    </div>
 
-  <div class="space-y-8">
-    <!-- Item: Despachos -->
-    <div>
-      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Despachos e Diligências</h5>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
-          <span class="text-2xl font-bold text-gray-800">12</span>
+                    <div class="bg-white rounded-xl shadow p-5 border-l-4 border-yellow-500 stat-card">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-xs font-bold uppercase">Estratégias Desenvolvidas</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-1">77</h3>
+                            </div>
+                            <div class="bg-yellow-100 p-2 rounded-lg text-yellow-600"><i class="fa-solid fa-lightbulb"></i></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Consultivo e Inovação</p>
+                    </div>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Gráfico 1: Evolução Operacional -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-800 mb-4 border-b pb-2">Evolução de Produtividade Mensal</h3>
+                        <div class="relative h-72">
+                            <canvas id="evolucaoChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Gráfico 2: Composição por Cliente (Maior impacto nos meses Mar-Mai) -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-800 mb-4 border-b pb-2">Volume de Despachos por Mês</h3>
+                        <div class="relative h-72">
+                            <canvas id="despachosChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             SEÇÃO: FEVEREIRO
+        =========================================== -->
+        <section id="fev" class="content-section">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="flex items-center gap-3 mb-8 border-b pb-4">
+                    <i class="fa-solid fa-calendar-days text-2xl text-[#003366]"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Resultados - Fevereiro</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Gestão de Teses -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500 stat-card">
+                        <h3 class="font-bold text-lg text-blue-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-book-open text-blue-500"></i> Gestão de Teses e Qualidade</h3>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <span class="text-sm font-semibold text-gray-700">Revisão de Peças Estratégicas</span>
+                                <span class="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full">15</span>
+                            </li>
+                            <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <div>
+                                    <span class="text-sm font-semibold text-gray-700 block">JA</span>
+                                    <span class="client-badge bg-purple-100 text-purple-700 mt-1 inline-block">Nubank</span>
+                                </div>
+                                <span class="bg-gray-200 text-gray-800 font-bold px-3 py-1 rounded-full">90</span>
+                            </li>
+                            <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <span class="text-sm font-semibold text-gray-700">Novas Teses e Tópicos</span>
+                                <span class="bg-yellow-100 text-yellow-800 font-bold px-3 py-1 rounded-full">03</span>
+                            </li>
+                        </ul>
+                        <p class="text-xs text-gray-500 italic mt-4">* Inclui feedback estruturado e controle de qualidade amostral.</p>
+                    </div>
+
+                    <!-- Consultivo -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-yellow-500 stat-card">
+                        <h3 class="font-bold text-lg text-blue-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-chess-knight text-yellow-500"></i> Atuação Consultiva</h3>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <span class="text-sm font-semibold text-gray-700">Estratégia Jurídica</span>
+                                <span class="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full">18</span>
+                            </li>
+                            <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <span class="text-sm font-semibold text-gray-700">Relatórios</span>
+                                <span class="bg-gray-200 text-gray-800 font-bold px-3 py-1 rounded-full">05</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Despachos -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-purple-500 stat-card">
+                        <h3 class="font-bold text-lg text-blue-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-comments text-purple-500"></i> Despachos</h3>
+                        <div class="flex items-center justify-center h-32 bg-gray-50 rounded-lg border border-gray-100">
+                            <div class="text-center">
+                                <span class="block text-4xl font-black text-gray-800">12</span>
+                                <span class="text-sm text-gray-500 font-semibold uppercase mt-1">Realizados</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SEÇÃO: MARÇO
+        =========================================== -->
+        <section id="mar" class="content-section">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="flex items-center gap-3 mb-8 border-b pb-4">
+                    <i class="fa-solid fa-calendar-days text-2xl text-[#003366]"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Resultados - Março</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Gestão de Teses -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <h3 class="font-bold text-lg text-gray-800 mb-4 border-b pb-2"><i class="fa-solid fa-book-open text-blue-500 mr-2"></i> Gestão de Teses e Qualidade</h3>
+                        
+                        <div class="mb-5">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-bold text-gray-700">Revisão de Peças Estratégicas</span>
+                                <span class="bg-blue-600 text-white font-bold px-3 py-1 rounded text-lg">78</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <span class="client-badge bg-green-100 text-green-800">Serasa: 71</span>
+                                <span class="client-badge bg-yellow-100 text-yellow-800">Mercado Livre: 04</span>
+                                <span class="client-badge bg-purple-100 text-purple-800">Nubank: 02</span>
+                                <span class="client-badge bg-red-100 text-red-800">IFood: 01</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <span class="text-xs text-gray-500 font-bold uppercase block mb-1">JA (Nubank)</span>
+                                <span class="text-2xl font-bold text-gray-800 block">90</span>
+                                <span class="text-[10px] text-gray-500 mt-1 block">Feedback/Controle de Qualidade</span>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <span class="text-xs text-gray-500 font-bold uppercase block mb-1">Novas Teses</span>
+                                <span class="text-2xl font-bold text-gray-800 block">01</span>
+                                <span class="client-badge bg-gray-200 text-gray-700 mt-1 inline-block">MOVA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operação e Estratégia -->
+                    <div class="grid grid-rows-2 gap-6">
+                        <div class="grid grid-cols-2 gap-6">
+                            <!-- Despachos -->
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                                <h4 class="font-bold text-gray-700 text-sm mb-3 uppercase tracking-wider"><i class="fa-solid fa-comments text-purple-500 mr-1"></i> Despachos</h4>
+                                <div class="text-3xl font-black text-purple-600 mb-2">14</div>
+                                <ul class="text-xs text-gray-600 space-y-1">
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 11 Serasa</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 01 Eurovia</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 02 Diversos</li>
+                                </ul>
+                            </div>
+                            <!-- Núcleo Athena -->
+                            <div class="bg-gradient-to-br from-slate-800 to-slate-900 text-white p-5 rounded-xl shadow-sm">
+                                <h4 class="font-bold text-gray-200 text-sm mb-3 uppercase tracking-wider"><i class="fa-solid fa-shield-halved text-blue-400 mr-1"></i> Núcleo Athena</h4>
+                                <p class="text-xs text-slate-300 mb-1">Revisão técnica de dossiês estratégicos</p>
+                                <div class="text-3xl font-black text-white mt-2">01</div>
+                                <span class="client-badge bg-slate-700 text-white mt-2 inline-block border border-slate-600">Serasa</span>
+                            </div>
+                        </div>
+
+                        <!-- Consultivo -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-gray-700 text-sm mb-3 uppercase tracking-wider"><i class="fa-solid fa-chess-knight text-yellow-500 mr-1"></i> Estratégia Jurídica & Relatórios</h4>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="flex items-end gap-2 mb-2">
+                                        <span class="text-2xl font-black text-gray-800">14</span>
+                                        <span class="text-xs text-gray-500 mb-1 font-semibold uppercase">Estratégias</span>
+                                    </div>
+                                    <div class="flex gap-1">
+                                        <span class="client-badge bg-green-100 text-green-800 text-[10px]">Serasa: 08</span>
+                                        <span class="client-badge bg-yellow-100 text-yellow-800 text-[10px]">ML: 04</span>
+                                        <span class="client-badge bg-purple-100 text-purple-800 text-[10px]">Nubank: 02</span>
+                                    </div>
+                                </div>
+                                <div class="border-l pl-4 border-gray-200">
+                                    <div class="flex items-end gap-2">
+                                        <span class="text-2xl font-black text-gray-800">01</span>
+                                        <span class="text-xs text-gray-500 mb-1 font-semibold uppercase">Relatório</span>
+                                    </div>
+                                    <span class="client-badge bg-green-100 text-green-800 text-[10px] mt-1 block">Serasa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SEÇÃO: ABRIL
+        =========================================== -->
+        <section id="abr" class="content-section">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="flex items-center gap-3 mb-8 border-b pb-4">
+                    <i class="fa-solid fa-calendar-days text-2xl text-[#003366]"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">Resultados - Abril</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Gestão de Teses -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <h3 class="font-bold text-lg text-gray-800 mb-4 border-b pb-2"><i class="fa-solid fa-book-open text-blue-500 mr-2"></i> Gestão de Teses e Qualidade</h3>
+                        
+                        <div class="mb-5">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-bold text-gray-700">Revisão de Peças Estratégicas</span>
+                                <span class="bg-blue-600 text-white font-bold px-3 py-1 rounded text-lg">40</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <span class="client-badge bg-green-100 text-green-800">Serasa: 26</span>
+                                <span class="client-badge bg-yellow-100 text-yellow-800">Mercado Livre: 12</span>
+                                <span class="client-badge bg-gray-200 text-gray-800">Ortobom: 01</span>
+                                <span class="client-badge bg-blue-100 text-blue-800">TOTVS: 01</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <span class="text-xs text-gray-500 font-bold uppercase block mb-1">JA (Nubank)</span>
+                                <span class="text-2xl font-bold text-gray-800 block">55</span>
+                                <span class="text-[10px] text-gray-500 mt-1 block">Feedback/Controle de Qualidade</span>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-col justify-center items-center">
+                                <span class="text-xs text-gray-500 font-bold uppercase block mb-1">Novas Teses</span>
+                                <span class="text-lg font-bold text-gray-400 block">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operação e Estratégia -->
+                    <div class="grid grid-rows-2 gap-6">
+                        <div class="grid grid-cols-2 gap-6">
+                            <!-- Despachos -->
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                                <h4 class="font-bold text-gray-700 text-sm mb-3 uppercase tracking-wider"><i class="fa-solid fa-comments text-purple-500 mr-1"></i> Despachos</h4>
+                                <div class="text-3xl font-black text-purple-600 mb-2">33</div>
+                                <ul class="text-[11px] text-gray-600 space-y-1">
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 20 Nubank</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 08 Serasa</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 03 Mercado Livre</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 02 Eurovia</li>
+                                </ul>
+                            </div>
+                            <!-- Núcleo Athena -->
+                            <div class="bg-gradient-to-br from-slate-800 to-slate-900 text-white p-5 rounded-xl shadow-sm">
+                                <h4 class="font-bold text-gray-200 text-sm mb-3 uppercase tracking-wider"><i class="fa-solid fa-shield-halved text-blue-400 mr-1"></i> Núcleo Athena</h4>
+                                <p class="text-xs text-slate-300 mb-1">Revisão de dossiês</p>
+                                <div class="text-3xl font-black text-white mt-1">03</div>
+                                <div class="flex gap-1 mt-2">
+                                    <span class="client-badge bg-slate-700 text-white text-[9px] border border-slate-600">Serasa: 01</span>
+                                    <span class="client-badge bg-slate-700 text-white text-[9px] border border-slate-600">Nubank: 02</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Consultivo -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-gray-700 text-sm mb-3 uppercase tracking-wider"><i class="fa-solid fa-chess-knight text-yellow-500 mr-1"></i> Estratégia Jurídica & Relatórios</h4>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="flex items-end gap-2 mb-2">
+                                        <span class="text-2xl font-black text-gray-800">15</span>
+                                        <span class="text-xs text-gray-500 mb-1 font-semibold uppercase">Estratégias</span>
+                                    </div>
+                                    <div class="flex gap-1">
+                                        <span class="client-badge bg-yellow-100 text-yellow-800 text-[10px]">Mercado Livre: 13</span>
+                                        <span class="client-badge bg-green-100 text-green-800 text-[10px]">Serasa: 02</span>
+                                    </div>
+                                </div>
+                                <div class="border-l pl-4 border-gray-200">
+                                    <div class="flex items-end gap-2">
+                                        <span class="text-2xl font-black text-gray-800">01</span>
+                                        <span class="text-xs text-gray-500 mb-1 font-semibold uppercase">Relatório</span>
+                                    </div>
+                                    <span class="client-badge bg-green-100 text-green-800 text-[10px] mt-1 block">Serasa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SEÇÃO: MAIO (Mês Destaque)
+        =========================================== -->
+        <section id="mai" class="content-section">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="flex justify-between items-end mb-8 border-b pb-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-calendar-days text-2xl text-[#003366]"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">Resultados - Maio</h2>
+                    </div>
+                    <span class="bg-[#003366] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Mês Atual do Report</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Gestão de Teses (Maior volume) -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-600 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-bl-lg">Recorde JA</div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-4 border-b pb-2"><i class="fa-solid fa-book-open text-blue-600 mr-2"></i> Gestão de Teses e Qualidade</h3>
+                        
+                        <div class="mb-5">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-bold text-gray-700">Revisão de Peças Estratégicas</span>
+                                <span class="bg-blue-600 text-white font-bold px-3 py-1 rounded text-lg">49</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <span class="client-badge bg-green-100 text-green-800">Serasa: 32</span>
+                                <span class="client-badge bg-yellow-100 text-yellow-800">Mercado Livre: 12</span>
+                                <span class="client-badge bg-pink-100 text-pink-800">Buser: 02</span>
+                                <span class="client-badge bg-red-100 text-red-800">3Corações: 01</span>
+                                <span class="client-badge bg-blue-100 text-blue-800">TOTVS: 01</span>
+                                <span class="client-badge bg-purple-100 text-purple-800">Nubank: 01</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 text-center">
+                                <span class="text-xs text-blue-600 font-bold uppercase block mb-1">JA (Nubank)</span>
+                                <span class="text-4xl font-black text-blue-800 block">141</span>
+                                <span class="text-[10px] text-blue-600 mt-1 block font-semibold">Feedback/Qualidade Amostral</span>
+                            </div>
+                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 flex flex-col justify-center text-center">
+                                <span class="text-xs text-yellow-700 font-bold uppercase block mb-1">Inovação: Novas Teses</span>
+                                <span class="text-3xl font-black text-yellow-600 block">06</span>
+                                <span class="client-badge bg-green-100 text-green-800 mt-2 mx-auto inline-block">Todas Serasa</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operação e Estratégia -->
+                    <div class="grid grid-rows-2 gap-6">
+                        <div class="grid grid-cols-2 gap-6">
+                            <!-- Despachos e Diligências -->
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                                <h4 class="font-bold text-gray-700 text-sm mb-3 uppercase tracking-wider"><i class="fa-solid fa-comments text-purple-500 mr-1"></i> Despachos & Diligências</h4>
+                                <div class="text-3xl font-black text-purple-600 mb-2">21</div>
+                                <ul class="text-[11px] text-gray-600 space-y-1">
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 13 Serasa</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 01 Nubank</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 01 Mercado Livre</li>
+                                    <li><i class="fa-solid fa-check text-green-500 mr-1"></i> 06 Diversos</li>
+                                </ul>
+                            </div>
+                            <!-- Núcleo Athena -->
+                            <div class="bg-gradient-to-br from-slate-800 to-slate-900 text-white p-5 rounded-xl shadow-sm">
+                                <h4 class="font-bold text-gray-200 text-sm mb-3 uppercase tracking-wider"><i class="fa-solid fa-shield-halved text-blue-400 mr-1"></i> Núcleo Athena</h4>
+                                <p class="text-xs text-slate-300 mb-1">Revisão de dossiês</p>
+                                <div class="text-3xl font-black text-white mt-2">04</div>
+                                <span class="client-badge bg-slate-700 text-green-300 mt-2 inline-block border border-slate-600">04 Serasa</span>
+                            </div>
+                        </div>
+
+                        <!-- Consultivo -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 relative">
+                            <h4 class="font-bold text-gray-700 text-sm mb-3 uppercase tracking-wider"><i class="fa-solid fa-chess-knight text-yellow-500 mr-1"></i> Atuação Consultiva</h4>
+                            <p class="absolute top-4 right-4 text-[10px] bg-red-100 text-red-700 px-2 py-1 rounded font-bold"><i class="fa-solid fa-rss"></i> Radar Consumerista Diário</p>
+                            
+                            <div class="flex items-center justify-between mt-4">
+                                <div>
+                                    <div class="flex items-end gap-2 mb-2">
+                                        <span class="text-3xl font-black text-gray-800">30</span>
+                                        <span class="text-xs text-gray-500 mb-1 font-semibold uppercase">Estratégias</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1 max-w-[150px]">
+                                        <span class="client-badge bg-green-100 text-green-800 text-[9px]">Serasa: 16</span>
+                                        <span class="client-badge bg-yellow-100 text-yellow-800 text-[9px]">ML: 10</span>
+                                        <span class="client-badge bg-purple-100 text-purple-800 text-[9px]">Nubank: 04</span>
+                                    </div>
+                                </div>
+                                <div class="border-l pl-4 border-gray-200 flex flex-col justify-center">
+                                    <div class="flex items-end gap-2">
+                                        <span class="text-2xl font-black text-gray-800">01</span>
+                                        <span class="text-xs text-gray-500 mb-1 font-semibold uppercase">Relatório</span>
+                                    </div>
+                                    <span class="client-badge bg-green-100 text-green-800 text-[10px] mt-1 text-center block">Serasa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SEÇÃO: ESTRATÉGIA E PROJETOS (Destaques, Cronograma)
+        =========================================== -->
+        <section id="destaques" class="content-section">
+            <!-- Header Azul -->
+            <div class="bg-[#003366] text-white py-12">
+                <div class="max-w-7xl mx-auto px-4">
+                    <h2 class="text-3xl font-bold mb-2 font-poppins"><i class="fa-solid fa-rocket mr-2 text-yellow-400"></i> Destaques & Projetos</h2>
+                    <p class="text-blue-100 text-sm">Resultados estratégicos, capacitação de equipe e jurimetria preventiva.</p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-8 space-y-10">
+                
+                <!-- Resultados Estratégicos -->
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 border-l-4 border-yellow-400 pl-3">Destaques e Resultados Estratégicos</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex gap-4 items-start stat-card hover:border-green-400">
+                            <div class="bg-green-100 p-3 rounded-full text-green-600 shrink-0">
+                                <i class="fa-solid fa-money-bill-trend-up text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Êxito Financeiro Expressivo</h4>
+                                <span class="client-badge bg-yellow-100 text-yellow-800 mb-2 inline-block">Mercado Livre</span>
+                                <p class="text-sm text-gray-600">Desbloqueio estratégico de penhora no valor de <strong>R$ 7.180.000,00</strong> (7 milhões e 180 mil reais).</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex gap-4 items-start stat-card hover:border-blue-400">
+                            <div class="bg-blue-100 p-3 rounded-full text-blue-600 shrink-0">
+                                <i class="fa-solid fa-users-viewfinder text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Vitória em Tutelas Coletivas</h4>
+                                <span class="client-badge bg-green-100 text-green-800 mb-2 inline-block">Serasa</span>
+                                <p class="text-sm text-gray-600">Revogação de liminares em sede de Ações Coletivas nos estados da <strong>Bahia (BA), Ceará (CE) e Pernambuco (PE)</strong>.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex gap-4 items-start stat-card hover:border-purple-400">
+                            <div class="bg-purple-100 p-3 rounded-full text-purple-600 shrink-0">
+                                <i class="fa-solid fa-scale-balanced text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Alinhamento Jurisprudencial</h4>
+                                <span class="client-badge bg-green-100 text-green-800 mb-2 inline-block">Serasa</span>
+                                <p class="text-sm text-gray-600">Adoção do <strong>TEMA 1.315 do STJ</strong> nos casos de FC DIGITAL.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex gap-4 items-start stat-card hover:border-red-400">
+                            <div class="bg-red-100 p-3 rounded-full text-red-600 shrink-0">
+                                <i class="fa-solid fa-shield-halved text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Manutenção de Tutela de Urgência</h4>
+                                <span class="client-badge bg-gray-200 text-gray-700 mb-2 inline-block">Processo 5 Anos</span>
+                                <p class="text-sm text-gray-600">Após a concessão da liminar neste ano (2026), a parte ré interpôs Agravo de Instrumento, o qual foi <strong>conhecido e não provido</strong>.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr class="border-gray-200">
+
+                <!-- Cronograma & Deep Legal -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Cronograma de Treinamentos -->
+                    <div class="lg:col-span-2">
+                        <h3 class="text-xl font-bold text-gray-800 mb-6 border-l-4 border-blue-600 pl-3">Projeto de Capacitação</h3>
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="bg-slate-50 text-gray-600 font-bold border-b border-gray-200">
+                                        <tr>
+                                            <th class="px-4 py-3">Data Prevista</th>
+                                            <th class="px-4 py-3">Formato</th>
+                                            <th class="px-4 py-3">Tema</th>
+                                            <th class="px-4 py-3">Líder / Palestrante</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">01/07/2026</td>
+                                            <td class="px-4 py-3"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">Virtual</span></td>
+                                            <td class="px-4 py-3">Audiências, Despachos e Sustentação Oral</td>
+                                            <td class="px-4 py-3 text-gray-600">Laís e Maria Alice</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">22/07/2026</td>
+                                            <td class="px-4 py-3"><span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded">Presencial</span></td>
+                                            <td class="px-4 py-3">Preliminares de mérito e análise de documentos/provas</td>
+                                            <td class="px-4 py-3 text-gray-400 italic">A definir nesta reunião</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">11/08/2026</td>
+                                            <td class="px-4 py-3"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">Virtual</span></td>
+                                            <td class="px-4 py-3">Cumprimento de Sentença e Execução</td>
+                                            <td class="px-4 py-3 text-gray-400 italic">A definir nesta reunião</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">05/09/2026</td>
+                                            <td class="px-4 py-3"><span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded">Presencial</span></td>
+                                            <td class="px-4 py-3">Oficina de Memoriais</td>
+                                            <td class="px-4 py-3 text-gray-600">Marina</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">25/09/2026</td>
+                                            <td class="px-4 py-3"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">Virtual</span></td>
+                                            <td class="px-4 py-3">JEC x Justiça Comum</td>
+                                            <td class="px-4 py-3 text-gray-400 italic">A definir nesta reunião</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">20/10/2026</td>
+                                            <td class="px-4 py-3"><span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded">Presencial</span></td>
+                                            <td class="px-4 py-3">Recursos</td>
+                                            <td class="px-4 py-3 text-gray-400 italic">A definir nesta reunião</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Deep Legal -->
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-6 border-l-4 border-purple-600 pl-3">Deep Legal (Jurimetria)</h3>
+                        <div class="bg-slate-800 text-white p-6 rounded-xl shadow-md h-[calc(100%-3rem)]">
+                            <p class="text-slate-300 text-sm mb-6 border-b border-slate-600 pb-4">Inteligência de Dados aplicados na operação diária.</p>
+                            
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-map-location-dot mt-1 text-blue-400"></i>
+                                    <div>
+                                        <h4 class="font-bold text-sm">Monitoramento Estratégico</h4>
+                                        <p class="text-xs text-slate-400 mt-1">Acompanhamento das Comarcas de maior risco.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-chart-pie mt-1 text-yellow-400"></i>
+                                    <div>
+                                        <h4 class="font-bold text-sm">Previsibilidade</h4>
+                                        <p class="text-xs text-slate-400 mt-1">Estudo de previsibilidade e jurimetria preventiva.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-book mt-1 text-green-400"></i>
+                                    <div>
+                                        <h4 class="font-bold text-sm">Súmulas e Precedentes</h4>
+                                        <p class="text-xs text-slate-400 mt-1">Estudos aplicados a cenários locais específicos.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-list-check mt-1 text-red-400"></i>
+                                    <div>
+                                        <h4 class="font-bold text-sm">Ação Preventiva</h4>
+                                        <p class="text-xs text-slate-400 mt-1">Elaboração de plano de ação preventivo.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-6">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-gray-500 text-xs">
+            <p>&copy; 2026 - Dashboard de Dados RAR - Coordenação Técnica</p>
+            <p class="mt-2 md:mt-0 font-bold text-gray-400 uppercase tracking-widest border border-gray-300 px-3 py-1 rounded">Confidencial</p>
         </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
-          <span class="text-2xl font-bold text-gray-800">14</span>
-          <div class="mt-2 text-[11px] leading-relaxed text-gray-600">(11 Serasa; 01 Eurovia; Diversos 02)</div>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
-          <span class="text-2xl font-bold text-gray-800">33</span>
-          <div class="mt-2 text-[11px] leading-relaxed text-gray-600">(20 Nubank; 03 ML; 08 Serasa; 02 Eurovia)</div>
-        </div>
-        <div class="bg-green-50 p-4 rounded-lg border-2 border-green-300 relative shadow-sm">
-          <span class="absolute top-0 right-0 bg-green-500 text-white text-[10px] px-2 py-1 rounded-bl-lg rounded-tr-lg font-bold">ATUAL</span>
-          <span class="block text-xs font-bold text-green-800 uppercase mb-1">Maio</span>
-          <span class="text-3xl font-bold text-green-700">21</span>
-          <div class="mt-2 text-[11px] leading-relaxed text-green-800">(01 Nubank; 01 ML; 13 Serasa; 06 Diversos)</div>
-        </div>
-      </div>
-    </div>
+    </footer>
 
-    <!-- Item: Estratégia Jurídica -->
-    <div>
-      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Desenvolvimento de Estratégias Jurídicas</h5>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
-          <span class="text-2xl font-bold text-gray-800">18</span>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
-          <span class="text-2xl font-bold text-gray-800">14</span>
-          <div class="mt-2 text-[11px] text-gray-600">(08 Serasa; 04 ML; 02 Nubank)</div>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
-          <span class="text-2xl font-bold text-gray-800">15</span>
-          <div class="mt-2 text-[11px] text-gray-600">(02 Serasa; 13 ML)</div>
-        </div>
-        <div class="bg-green-50 p-4 rounded-lg border-2 border-green-300 relative">
-          <span class="block text-xs font-bold text-green-800 uppercase mb-1">Maio</span>
-          <span class="text-2xl font-bold text-green-700">30</span>
-          <div class="mt-2 text-[11px] text-green-800">(16 Serasa; 10 ML; 04 Nubank)</div>
-        </div>
-      </div>
-    </div>
+    <script>
+        // Lógica de Tabs
+        function showSection(sectionId) {
+            // Esconde todas
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Mostra alvo
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.classList.add('active');
+            }
+            // Atualiza botões
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+            });
+            const activeBtn = document.getElementById('btn-' + sectionId);
+            if (activeBtn) {
+                activeBtn.classList.add('tab-active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-    <!-- Item: Relatórios -->
-    <div>
-      <h5 class="font-bold text-gray-700 mb-3 border-b pb-2 text-sm uppercase">Relatórios</h5>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Fevereiro</span>
-          <span class="text-xl font-bold text-gray-800">05</span>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Março</span>
-          <span class="text-xl font-bold text-gray-800">01</span>
-          <div class="mt-1 text-[11px] text-gray-600">(Serasa)</div>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <span class="block text-xs font-bold text-gray-400 uppercase mb-1">Abril</span>
-          <span class="text-xl font-bold text-gray-800">01</span>
-          <div class="mt-1 text-[11px] text-gray-600">(Serasa)</div>
-        </div>
-        <div class="bg-green-50 p-4 rounded-lg border-2 border-green-300 relative">
-          <span class="block text-xs font-bold text-green-800 uppercase mb-1">Maio</span>
-          <span class="text-xl font-bold text-green-700">01</span>
-          <div class="mt-1 text-[11px] text-green-800">(Serasa)</div>
-        </div>
-      </div>
-    </div>
+        // Lógica dos Gráficos (Chart.js)
+        document.addEventListener("DOMContentLoaded", function() {
+            // Dados extraídos do documento para o comparativo
+            const labelsMeses = ['Fevereiro', 'Março', 'Abril', 'Maio'];
+            
+            // Gráfico 1: Evolução
+            const ctxEvolucao = document.getElementById('evolucaoChart').getContext('2d');
+            new Chart(ctxEvolucao, {
+                type: 'line',
+                data: {
+                    labels: labelsMeses,
+                    datasets: [
+                        {
+                            label: 'Revisão Peças',
+                            data: [15, 78, 40, 49],
+                            borderColor: '#3b82f6',
+                            backgroundColor: '#3b82f6',
+                            tension: 0.3,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'JA (Nubank)',
+                            data: [90, 90, 55, 141],
+                            borderColor: '#22c55e',
+                            backgroundColor: '#22c55e',
+                            tension: 0.3,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Estratégia Jurídica',
+                            data: [18, 14, 15, 30],
+                            borderColor: '#eab308',
+                            backgroundColor: '#eab308',
+                            tension: 0.3,
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
 
-  </div>
-</div>
-
-</div>
-</section>
-
-<!-- SECÇÃO: ESTRATÉGICO -->
-<section id="estrategico" class="content-section">
-<div class="bg-slate-800 text-white py-12">
-<div class="max-w-7xl mx-auto px-4 text-center md:text-left">
-<h2 class="text-3xl sm:text-4xl font-bold mb-2">Planejamento & Resultados Estratégicos</h2>
-<p class="text-slate-300 flex items-center justify-center md:justify-start gap-2 text-lg">
-Coordenação Técnica - AESI
-</p>
-</div>
-</div>
- 
-<div class="max-w-7xl mx-auto px-4 py-12 space-y-10">
-  
-<!-- DESTAQUES E RESULTADOS ESTRATÉGICOS -->
-<div>
-<h3 class="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-yellow-400 pl-3">Destaques e Resultados Estratégicos</h3>
-<div class="grid md:grid-cols-2 gap-4">
-  
-  <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex gap-4 items-start">
-    <div class="bg-green-100 text-green-600 p-3 rounded-full shrink-0">
-      <i class="fa-solid fa-trophy text-xl"></i>
-    </div>
-    <div>
-      <h4 class="font-bold text-gray-800 text-md mb-1">Vitória em Tutelas Coletivas <span class="text-xs font-normal text-gray-500 ml-1">(Serasa)</span></h4>
-      <p class="text-sm text-gray-600 leading-relaxed">Revogação de liminares em sede Ações Coletivas nos estados da Bahia (BA), Ceará (CE) e Pernambuco (PE).</p>
-    </div>
-  </div>
-
-  <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex gap-4 items-start">
-    <div class="bg-blue-100 text-blue-600 p-3 rounded-full shrink-0">
-      <i class="fa-solid fa-book-bookmark text-xl"></i>
-    </div>
-    <div>
-      <h4 class="font-bold text-gray-800 text-md mb-1">Alinhamento Jurisprudencial <span class="text-xs font-normal text-gray-500 ml-1">(Serasa)</span></h4>
-      <p class="text-sm text-gray-600 leading-relaxed">Adoção do TEMA 1.315 do STJ nos casos de FC DIGITAL.</p>
-    </div>
-  </div>
-
-  <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex gap-4 items-start md:col-span-2 lg:col-span-1">
-    <div class="bg-yellow-100 text-yellow-600 p-3 rounded-full shrink-0">
-      <i class="fa-solid fa-sack-dollar text-xl"></i>
-    </div>
-    <div>
-      <h4 class="font-bold text-gray-800 text-md mb-1">Êxito Financeiro Expressivo <span class="text-xs font-normal text-gray-500 ml-1">(Mercado Livre)</span></h4>
-      <p class="text-sm text-gray-600 leading-relaxed">Desbloqueio estratégico de penhora no valor de <strong>R$ 7.180.000,00</strong> (7 milhões e 180 mil reais).</p>
-    </div>
-  </div>
-
-  <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex gap-4 items-start md:col-span-2 lg:col-span-1">
-    <div class="bg-purple-100 text-purple-600 p-3 rounded-full shrink-0">
-      <i class="fa-solid fa-shield-halved text-xl"></i>
-    </div>
-    <div>
-      <h4 class="font-bold text-gray-800 text-md mb-1">Manutenção de tutela de urgência</h4>
-      <p class="text-sm text-gray-600 leading-relaxed">Após a concessão da liminar neste ano (2026), a parte ré interpôs Agravo de Instrumento, o qual foi <strong>conhecido e não provido</strong>.</p>
-      <div class="mt-2 bg-gray-50 text-xs px-2 py-1 rounded text-gray-500 inline-block">OBS: Processo com 5 anos de tramitação</div>
-    </div>
-  </div>
-
-</div>
-</div>
-
-<!-- CRONOGRAMA DE TREINAMENTOS -->
-<div>
-<h3 class="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-indigo-500 pl-3">Projeto de Capacitação</h3>
-<p class="text-gray-600 text-sm mb-4">Cronograma de Treinamentos para capacitação da equipe.</p>
-<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-<div class="overflow-x-auto">
-<table class="w-full text-sm text-left">
-<thead class="bg-slate-50 text-gray-600 font-bold border-b border-gray-200">
-<tr>
-<th class="px-4 py-4 whitespace-nowrap">Data Prevista</th>
-<th class="px-4 py-4">Formato</th>
-<th class="px-4 py-4">Tema</th>
-<th class="px-4 py-4">Líder Técnico / Palestrante</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-100">
-<tr class="hover:bg-gray-50">
-<td class="px-4 py-3 font-medium text-gray-800">01/07/2026</td>
-<td class="px-4 py-3"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">Virtual</span></td>
-<td class="px-4 py-3 text-gray-700">Audiências, Despachos e Sustentação Oral</td>
-<td class="px-4 py-3 text-gray-600">Laís e Maria Alice</td>
-</tr>
-<tr class="hover:bg-gray-50">
-<td class="px-4 py-3 font-medium text-gray-800">22/07/2026</td>
-<td class="px-4 py-3"><span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded font-bold">Presencial</span></td>
-<td class="px-4 py-3 text-gray-700">Preliminares de mérito e análise de documentos/provas</td>
-<td class="px-4 py-3 text-gray-500 italic">A definir nesta reunião</td>
-</tr>
-<tr class="hover:bg-gray-50">
-<td class="px-4 py-3 font-medium text-gray-800">11/08/2026</td>
-<td class="px-4 py-3"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">Virtual</span></td>
-<td class="px-4 py-3 text-gray-700">Cumprimento de Sentença e Execução</td>
-<td class="px-4 py-3 text-gray-500 italic">A definir nesta reunião</td>
-</tr>
-<tr class="hover:bg-gray-50">
-<td class="px-4 py-3 font-medium text-gray-800">05/09/2026</td>
-<td class="px-4 py-3"><span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded font-bold">Presencial</span></td>
-<td class="px-4 py-3 text-gray-700">Oficina de Memoriais</td>
-<td class="px-4 py-3 text-gray-600">Marina</td>
-</tr>
-<tr class="hover:bg-gray-50">
-<td class="px-4 py-3 font-medium text-gray-800">25/09/2026</td>
-<td class="px-4 py-3"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">Virtual</span></td>
-<td class="px-4 py-3 text-gray-700">JEC x Justiça Comum</td>
-<td class="px-4 py-3 text-gray-500 italic">A definir nesta reunião</td>
-</tr>
-<tr class="hover:bg-gray-50">
-<td class="px-4 py-3 font-medium text-gray-800">20/10/2026</td>
-<td class="px-4 py-3"><span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded font-bold">Presencial</span></td>
-<td class="px-4 py-3 text-gray-700">Recursos</td>
-<td class="px-4 py-3 text-gray-500 italic">A definir nesta reunião</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-
-<!-- INTELIGÊNCIA DE DADOS & JURIMETRIA -->
-<div>
-<h3 class="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-teal-500 pl-3">Inteligência de Dados & Jurimetria (Deep Legal)</h3>
-<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-  <ul class="grid sm:grid-cols-2 gap-4 text-gray-700">
-    <li class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-      <i class="fa-solid fa-chart-line text-teal-600 text-lg w-6 text-center"></i>
-      <span class="font-semibold text-sm">Monitoramento estratégico de Comarcas</span>
-    </li>
-    <li class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-      <i class="fa-solid fa-magnifying-glass-chart text-teal-600 text-lg w-6 text-center"></i>
-      <span class="font-semibold text-sm">Estudo de previsibilidade e jurimetria preventiva</span>
-    </li>
-    <li class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-      <i class="fa-solid fa-book-open text-teal-600 text-lg w-6 text-center"></i>
-      <span class="font-semibold text-sm">Estudo de Súmulas e Precedentes Locais</span>
-    </li>
-    <li class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-      <i class="fa-solid fa-clipboard-check text-teal-600 text-lg w-6 text-center"></i>
-      <span class="font-semibold text-sm">Plano de Ação preventivo</span>
-    </li>
-  </ul>
-</div>
-</div>
-
-</div>
-</section>
- 
-</main>
- 
-<footer class="bg-white border-t border-gray-100 py-8 mt-auto">
-<div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-gray-400 text-xs">
-<p>&copy; 2026 - Relatório DADOS RAR - Coordenação Técnica</p>
-<p class="mt-2 md:mt-0 font-bold">CONFIDENCIAL</p>
-</div>
-</footer>
- 
-<script>
-function showSection(sectionId) {
-// Esconde todas as seções
-document.querySelectorAll('.content-section').forEach(section => {
-section.classList.remove('active');
-});
- 
-// Mostra a seção desejada
-const target = document.getElementById(sectionId);
-if (target) {
-target.classList.add('active');
-}
- 
-// Atualiza os estilos das abas de navegação
-document.querySelectorAll('.nav-btn').forEach(btn => {
-btn.classList.remove('tab-active');
-});
-const activeBtn = document.getElementById('btn-' + sectionId);
-if (activeBtn) {
-activeBtn.classList.add('tab-active');
-}
- 
-// Rola suavemente para o topo ao trocar de aba
-window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-</script>
+            // Gráfico 2: Despachos em Barra
+            const ctxDespachos = document.getElementById('despachosChart').getContext('2d');
+            new Chart(ctxDespachos, {
+                type: 'bar',
+                data: {
+                    labels: labelsMeses,
+                    datasets: [
+                        {
+                            label: 'Total Despachos',
+                            data: [12, 14, 33, 21],
+                            backgroundColor: 'rgba(168, 85, 247, 0.7)',
+                            borderColor: 'rgb(168, 85, 247)',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
